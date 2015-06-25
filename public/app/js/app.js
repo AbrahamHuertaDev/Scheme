@@ -20,7 +20,7 @@ var render = function(path)
 app.run(function($rootScope, ngProgress)
 {
 
-	ngProgress.color('#e74c3c');
+	ngProgress.color('#36bcbe');
 
 	$rootScope.$on('$routeChangeStart', function()
 	{
@@ -36,11 +36,12 @@ app.run(function($rootScope, ngProgress)
 	{
 		ngProgress.complete();
 
-		if(jQuery('.sidebar').hasClass('sidebar-open'))
+		if(angular.element('#menu').hasClass('menu-open'))
 		{
-			angular.element('.sidebar').toggleClass('sidebar-open');
-			angular.element('.overlay').toggleClass('sidebar-open');
+			angular.element('#menu').toggleClass('menu-open');
+			angular.element('[menu]').html('<i class="ion-navicon-round"></i>');
 		}
+
 	});
 
 	$rootScope.$on('$routeChangeError', function()
@@ -55,6 +56,9 @@ app.run(function($rootScope, ngProgress)
 app.config(function($routeProvider, $locationProvider)
 {
 	$routeProvider.when('/', render('home'));
+	$routeProvider.when('/whoops', render('whoops'));
+
+	$routeProvider.otherwise('/whoops');
 
 	$locationProvider.html5Mode(true);
 });
